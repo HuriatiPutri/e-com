@@ -35,8 +35,8 @@ $this->title = 'Info Pembayaran';
                         <b>Pembayaran</b>
                     </div>
                     <div class="panel-body">
-                        Silahkan lakukan pembayaran ke <b> no rek. 0843874834 </b>
-                        atas nama Pemilik toko. dalam waktu 2x24 jam. kemudian konfirmasi ke Wa. <b> 088847348</b>
+                        Silahkan lakukan pembayaran dengan mengklik tombol dibawah ini <br>
+                        <?=Html::a('Bayar disini', $url, ['class'=>'btn btn-primary', 'target'=>'_blank'])?>
                     </div>
                    
                 </div>

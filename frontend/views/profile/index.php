@@ -95,7 +95,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 'attribute' => 'status',
                 'format' => 'raw',
                 'value'=>function($model){
-                    return $model->getStatusTypeText(true);
+                    return $model->status == 2 ?  '<a href=bayar?id='.$model->id.'&total='.$model->total.'>'.$model->getStatusTypeText(true) . '</a>': $model->getStatusTypeText(true);
                 },
                 'headerOptions' => ['class' => 'text-right'],
                 'contentOptions' => ['class' => 'text-right'],

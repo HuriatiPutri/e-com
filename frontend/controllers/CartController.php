@@ -14,6 +14,7 @@ use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use yii\db\IntegrityException;
 use yii\data\ActiveDataProvider;
+use yii\httpclient\Client;
 
 /**
  * CartController implements the CRUD actions for pesan model.
@@ -81,9 +82,32 @@ class CartController extends Controller
             $pesan->paid = $totBelanja->pesan_total;
             $pesan->status = 2;
             $pesan->total = $pesan->paid+$pesan->ongkir;
-            if($pesan->save())
-                $this->redirect(['selesai','id'=>$pesan->id]);
-            else  $this->redirect('index');
+
+            
+            if($pesan->save()){
+                
+                $client = new Client(['requestConfig' => [
+                    'format' => Client::FORMAT_JSON
+                ],
+                'responseConfig' => [
+                    'format' => Client::FORMAT_JSON
+                ]]);
+        $response = $client->createRequest()
+            ->setMethod('POST')
+            // ->setFormat(Client::FORMAT_JSON)
+            ->setUrl('https://app.midtrans.com/snap/v1/transactions')
+            ->addHeaders(['Accept' => 'application/json','Content-Type'=>'application/json','Authorization'=>'Basic TWlkLXNlcnZlci1IaV9yMU9KOWNzb2FYZXJLS0JLX2ZxTnk6'])
+            ->setData(['transaction_details' => [
+                "order_id"=> $id,
+                "gross_amount"=> $pesan->total
+            ]])
+            ->send();
+            // if($response->isOK){
+                $url =  substr($response, stripos($response, "https://app.midtrans.com/snap/v2/vtweb/"),75);
+                // echo $url;
+                $this->redirect(['selesai','id'=>$pesan->id, 'url'=>$url]);
+            // }
+            }else  $this->redirect('index');
         }else{
             return $this->render('view', [
                 'pesan' =>$pesan,
@@ -98,11 +122,12 @@ class CartController extends Controller
        $model = Product::findOne($id);
         if (!$model->downloadFile($field)) throw new NotFoundHttpException('The requested file does not exist.');
     }
-    public function actionSelesai($id){
+    public function actionSelesai($id, $url){
         $model = Pesan::findOne($id);
         $dataProvider = DetailPesan::find()->joinWith('product')->where(['pesan_id'=>$id])->all();
 
         return $this->render('selesai',['model'=>$model,
+                'url' => $url,
                 'dataProvider' => $dataProvider]);
     }
     /**

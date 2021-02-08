@@ -3,6 +3,8 @@
 namespace common\models\entity;
 
 use Yii;
+use yii\helpers\Html;
+use yii\helpers\Url;
 
 /**
  * This is the model class for table "pesan".

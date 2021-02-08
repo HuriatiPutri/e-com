@@ -9,6 +9,7 @@ use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use yii\db\IntegrityException;
+use yii\httpclient\Client;
 
 /**
  * ProfileController implements the CRUD actions for pesan model.
@@ -57,6 +58,27 @@ class ProfileController extends Controller
         ]);
     }
 
+    public function actionBayar($id, $total){
+        $client = new Client(['requestConfig' => [
+            'format' => Client::FORMAT_JSON
+        ],
+        'responseConfig' => [
+            'format' => Client::FORMAT_JSON
+        ]]);
+        $response = $client->createRequest()
+            ->setMethod('POST')
+            // ->setFormat(Client::FORMAT_JSON)
+            ->setUrl('https://app.midtrans.com/snap/v1/transactions')
+            ->addHeaders(['Accept' => 'application/json','Content-Type'=>'application/json','Authorization'=>'Basic TWlkLXNlcnZlci1IaV9yMU9KOWNzb2FYZXJLS0JLX2ZxTnk6'])
+            ->setData(['transaction_details' => [
+                "order_id"=> $id,
+                "gross_amount"=> $total
+            ]])
+            ->send();
+            $url =  substr($response, stripos($response, "https://app.midtrans.com/snap/v2/vtweb/"), 75);
+            // echo $url;
+            $this->redirect(['/cart/selesai','id'=>$id, 'url'=>$url]);
+    }
     /**
      * Creates a new pesan model.
      * If creation is successful, the browser will be redirected to the 'view' page.

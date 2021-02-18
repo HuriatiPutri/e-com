@@ -9,7 +9,7 @@ use yii\helpers\Html;
     <div class="panel panel-default panel-product">
         <div class="panel-image" style="margin-top: 10px">
             <center>
-            <?= Html::img(['/site/download', 'id' => $model->id, 'field' => 'mainImage'] //$model->mainImage
+            <?= Html::img(['/site/download', 'id' => $model->product_id, 'field' => 'mainImage'] //$model->mainImage
                 , [
                 // 'class' => 'img-responsive',
                 'width' => '250',

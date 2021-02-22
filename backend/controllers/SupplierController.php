@@ -3,20 +3,19 @@
 namespace backend\controllers;
 
 use Yii;
-use common\models\entity\supplier;
+use common\models\entity\Supplier;
 use common\models\search\SupplierSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
-use yii\db\IntegrityException;
 
 /**
- * SupplierController implements the CRUD actions for supplier model.
+ * SupplierController implements the CRUD actions for Supplier model.
  */
 class SupplierController extends Controller
 {
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function behaviors()
     {
@@ -31,7 +30,7 @@ class SupplierController extends Controller
     }
 
     /**
-     * Lists all supplier models.
+     * Lists all Supplier models.
      * @return mixed
      */
     public function actionIndex()
@@ -46,9 +45,10 @@ class SupplierController extends Controller
     }
 
     /**
-     * Displays a single supplier model.
+     * Displays a single Supplier model.
      * @param integer $id
      * @return mixed
+     * @throws NotFoundHttpException if the model cannot be found
      */
     public function actionView($id)
     {
@@ -58,28 +58,29 @@ class SupplierController extends Controller
     }
 
     /**
-     * Creates a new supplier model.
+     * Creates a new Supplier model.
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
     public function actionCreate()
     {
-        $model = new supplier();
+        $model = new Supplier();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);
-        } else {
-            return $this->render('create', [
-                'model' => $model,
-            ]);
         }
+
+        return $this->render('create', [
+            'model' => $model,
+        ]);
     }
 
     /**
-     * Updates an existing supplier model.
+     * Updates an existing Supplier model.
      * If update is successful, the browser will be redirected to the 'view' page.
      * @param integer $id
      * @return mixed
+     * @throws NotFoundHttpException if the model cannot be found
      */
     public function actionUpdate($id)
     {
@@ -87,42 +88,40 @@ class SupplierController extends Controller
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);
-        } else {
-            return $this->render('update', [
-                'model' => $model,
-            ]);
         }
+
+        return $this->render('update', [
+            'model' => $model,
+        ]);
     }
 
     /**
-     * Deletes an existing supplier model.
+     * Deletes an existing Supplier model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
      * @param integer $id
      * @return mixed
+     * @throws NotFoundHttpException if the model cannot be found
      */
     public function actionDelete($id)
     {
-        try {
-            $this->findModel($id)->delete();
-            return $this->redirect(['index']);
-        } catch (IntegrityException $e) {
-            throw new \yii\web\HttpException(500,"Integrity Constraint Violation. This data can not be deleted due to the relation.", 405);
-        }
+        $this->findModel($id)->delete();
+
+        return $this->redirect(['index']);
     }
 
     /**
-     * Finds the supplier model based on its primary key value.
+     * Finds the Supplier model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
      * @param integer $id
-     * @return supplier the loaded model
+     * @return Supplier the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
     protected function findModel($id)
     {
-        if (($model = supplier::findOne($id)) !== null) {
+        if (($model = Supplier::findOne($id)) !== null) {
             return $model;
-        } else {
-            throw new NotFoundHttpException('The requested page does not exist.');
         }
+
+        throw new NotFoundHttpException('The requested page does not exist.');
     }
 }

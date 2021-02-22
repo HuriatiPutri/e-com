@@ -2,18 +2,17 @@
 
 namespace common\models\search;
 
-use Yii;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
-use common\models\entity\supplier;
+use common\models\entity\Supplier;
 
 /**
- * SupplierSearch represents the model behind the search form about `common\models\entity\supplier`.
+ * SupplierSearch represents the model behind the search form of `common\models\entity\Supplier`.
  */
-class SupplierSearch extends supplier
+class SupplierSearch extends Supplier
 {
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function rules()
     {
@@ -24,7 +23,7 @@ class SupplierSearch extends supplier
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function scenarios()
     {
@@ -41,7 +40,7 @@ class SupplierSearch extends supplier
      */
     public function search($params)
     {
-        $query = supplier::find();
+        $query = Supplier::find();
 
         // add conditions that should always apply here
 

@@ -34,7 +34,7 @@ use common\models\entity\User;
         'pluginOptions' => ['autoclose' => true, 'format' => 'yyyy-mm-dd'],
     ]); ?>
 
-    <?= $form->field($model, 'status')->textInput() ?>
+    <?= $form->field($model, 'status')->dropDownList(['0'=>'Dalam Keranjang', '2'=>'Bayar','3'=>'Dikirim','4'=>'Selesai']) ?>
 
     
     <div class="form-panel">

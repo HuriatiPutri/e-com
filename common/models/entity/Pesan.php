@@ -39,7 +39,8 @@ class Pesan extends \yii\db\ActiveRecord
     const CART = 0;
     const CHECKOUT = 1;
     const BAYAR = 2;
-    const SELESAI = 3;
+    const DIKIRIM = 3;
+    const SELESAI = 4;
 
  public static function statusTypes($index = 'all', $html = false)
     {
@@ -47,12 +48,14 @@ class Pesan extends \yii\db\ActiveRecord
             self::CART => 'Dalam keranjang',
             self::CHECKOUT => 'Checkout',
             self::BAYAR => 'Bayar',
+            self::DIKIRIM => 'Dikirim',
             self::SELESAI => 'Selesai',
         ];
         if ($html) $array = [
             self::CART => '<span class="text-bold text-default">Dalam keranjang</span>',
             self::CHECKOUT => '<span class="text-bold text-warning">Checkout</span>',
             self::BAYAR => '<span class="text-bold text-info">Bayar</span>',
+            self::DIKIRIM => '<span class="text-bold text-danger">Dikirim</span>',
             self::SELESAI => '<span class="text-bold text-success">Selesai</span>',
         ];
         if (isset($array[$index])) return $array[$index];

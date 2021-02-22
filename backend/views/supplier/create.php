@@ -1,19 +1,20 @@
 <?php
 
-use yii\helpers\Url;
 use yii\helpers\Html;
 
 /* @var $this yii\web\View */
-/* @var $model common\models\entity\supplier */
+/* @var $model common\models\entity\Supplier */
 
 $this->title = 'Create Supplier';
-$this->params['breadcrumbs'][] = ['label' => 'Supplier', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => 'Suppliers', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="supplier-create">
 
-	<?= $this->render('_form', [
-		'model' => $model,
-	]) ?>
-    
+    <h1><?= Html::encode($this->title) ?></h1>
+
+    <?= $this->render('_form', [
+        'model' => $model,
+    ]) ?>
+
 </div>

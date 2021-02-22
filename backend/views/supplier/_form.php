@@ -1,18 +1,14 @@
 <?php
 
-use yii\helpers\Url;
 use yii\helpers\Html;
-use yii\bootstrap\ActiveForm;
+use yii\widgets\ActiveForm;
 
 /* @var $this yii\web\View */
-/* @var $model common\models\entity\supplier */
+/* @var $model common\models\entity\Supplier */
 /* @var $form yii\widgets\ActiveForm */
 ?>
 
 <div class="supplier-form">
-
-<div class="row">
-<div class="col-md-8 col-sm-12">
 
     <?php $form = ActiveForm::begin(); ?>
 
@@ -24,20 +20,10 @@ use yii\bootstrap\ActiveForm;
 
     <?= $form->field($model, 'email')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'password')->passwordInput(['maxlength' => true]) ?>
-
-    
-    <div class="form-panel">
-        <div class="row">
-    	    <div class="col-sm-12">
-    	        <?= Html::submitButton('<i class="glyphicon glyphicon-ok"></i> ' . ($model->isNewRecord ? 'Create' : 'Update'), ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
-            </div>
-	    </div>
+    <div class="form-group">
+        <?= Html::submitButton('Save', ['class' => 'btn btn-success']) ?>
     </div>
 
     <?php ActiveForm::end(); ?>
-
-</div>
-</div>
 
 </div>

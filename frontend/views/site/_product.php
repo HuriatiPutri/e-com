@@ -24,6 +24,7 @@ use yii\helpers\Url;
             <h4>
                 <?= Html::a($model->name, ['cart/create', 'id' => $model->id]) ?>
             </h4>
+            <span class="label label-danger pull-right"><?= $model->stock <= 0 ? 'Sold Out' : '' ?></span><br><hr>
             <hr>
 
             <p class="text-muted">

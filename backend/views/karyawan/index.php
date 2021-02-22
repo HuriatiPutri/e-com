@@ -98,7 +98,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 'contentOptions' => ['class' => 'text-wrap'],
             ],
             'email:email',
-            'password',
+            // 'password',
             // 'created_at:integer',
             // 'created_by:integer',
             // 'updated_at:integer',

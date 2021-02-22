@@ -47,7 +47,7 @@ class Supplier extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['name', 'address', 'phone', 'email', 'password'], 'required'],
+            [['name', 'address', 'phone', 'email'], 'required'],
             [['address'], 'string'],
             [['created_at', 'created_by', 'updated_at', 'updated_by'], 'integer'],
             [['name', 'phone', 'email', 'password'], 'string', 'max' => 225],
@@ -61,9 +61,9 @@ class Supplier extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'name' => 'Name',
-            'address' => 'Address',
-            'phone' => 'Phone',
+            'name' => 'Nama',
+            'address' => 'Alamat',
+            'phone' => 'Telepon',
             'email' => 'Email',
             'password' => 'Password',
             'created_at' => 'Created At',

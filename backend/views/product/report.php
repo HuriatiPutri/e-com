@@ -12,7 +12,7 @@ use common\models\entity\Category;
 /* @var $searchModel common\models\search\ProductSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Product';
+$this->title = 'Laporan Stok Barang';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 
@@ -70,24 +70,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 'headerOptions' => ['class' => 'text-right serial-column'],
                 'contentOptions' => ['class' => 'text-right serial-column'],
             ],
-            [
-                'contentOptions' => ['class' => 'action-column nowrap text-left'],
-                'class' => 'yii\grid\ActionColumn',
-                'buttons' => [
-                    'view' => function ($url) {
-                        return Html::a('', $url, ['class' => 'glyphicon glyphicon-eye-open btn btn-xs btn-default btn-text-info']);
-                    },
-                    'update' => function ($url) {
-                        return Html::a('', $url, ['class' => 'glyphicon glyphicon-pencil btn btn-xs btn-default btn-text-warning']);
-                    },
-                    'delete' => function ($url) {
-                        return Html::a('', $url, [
-                            'class' => 'glyphicon glyphicon-trash btn btn-xs btn-default btn-text-danger', 
-                            'data-method' => 'post', 
-                            'data-confirm' => 'Are you sure you want to delete this item?']);
-                    },
-                ],
-            ],
+        
             // 'id',
             'name',
             [
@@ -124,10 +107,9 @@ $this->params['breadcrumbs'][] = $this->title;
         'striped' => false,
         'bordered' => false,
         'toolbar'=> [
-            Html::a('<i class="fa fa-plus"></i> ' . 'Create', ['create'], ['class' => 'btn btn-success']),
             Html::a('<i class="fa fa-repeat"></i> ' . 'Reload', ['index'], ['data-pjax'=>0, 'class'=>'btn btn-default']),
             '{toggleData}',
-            // $exportMenu,
+            $exportMenu,
         ],
         'panel' => [
             'type' => 'no-border transparent',

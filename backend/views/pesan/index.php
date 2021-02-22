@@ -116,7 +116,11 @@ $this->params['breadcrumbs'][] = $this->title;
             ],
             [
                 'attribute' => 'status',
-                'format' => 'integer',
+                'format' => 'raw',
+                'filter'    => ["2"=>"Bayar","3"=>"Dikirim","4"=>"Selesai" ],
+                'value'=>function($model){
+                    return $model->getStatusTypeText(true);
+                },
                 'headerOptions' => ['class' => 'text-right'],
                 'contentOptions' => ['class' => 'text-right'],
             ],

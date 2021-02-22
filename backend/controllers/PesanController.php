@@ -45,6 +45,38 @@ class PesanController extends Controller
         ]);
     }
 
+    public function actionReport()
+    {
+        $searchModel = new PesanSearch();
+        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+
+        return $this->render('report', [
+            'searchModel' => $searchModel,
+            'dataProvider' => $dataProvider,
+        ]);
+    }
+
+    public function actionPengiriman()
+    {
+        $searchModel = new PesanSearch(['status'=>3]);
+        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+
+        return $this->render('index', [
+            'searchModel' => $searchModel,
+            'dataProvider' => $dataProvider,
+        ]);
+    }
+
+    public function actionReportPengiriman()
+    {
+        $searchModel = new PesanSearch(['status'=>3]);
+        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+
+        return $this->render('report', [
+            'searchModel' => $searchModel,
+            'dataProvider' => $dataProvider,
+        ]);
+    }
     /**
      * Displays a single pesan model.
      * @param integer $id

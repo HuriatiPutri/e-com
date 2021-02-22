@@ -6,29 +6,29 @@ use yii\helpers\ArrayHelper;
 use kartik\grid\GridView;
 use kartik\export\ExportMenu;
 use kartik\widgets\Select2;
-use common\models\entity\Category;
+use kartik\widgets\DatePicker;
+use common\models\entity\User;
 
 /* @var $this yii\web\View */
-/* @var $searchModel common\models\search\ProductSearch */
+/* @var $searchModel common\models\search\PesanSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Product';
+$this->title = 'Pesan';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 
-<div class="product-index">
-
+<div class="pesan-index">
+    <?=$this->render('_search',['model'=>$searchModel])?>
     <?php 
         $exportColumns = [
             [
                 'class' => 'yii\grid\SerialColumn',
             ],
             'id',
-            'name',
-            'price',
-            'desc',
-            'mainImage',
-            'category.category:text:Category',
+            'user.name:text:User',
+            'paid',
+            'date:date',
+            'status',
             'created_at:datetime',
             'createdBy.username:text:Created By',
             'updated_at:datetime',
@@ -38,7 +38,7 @@ $this->params['breadcrumbs'][] = $this->title;
         $exportMenu = ExportMenu::widget([
             'dataProvider' => $dataProvider,
             'columns' => $exportColumns,
-            'filename' => 'Product',
+            'filename' => 'Pesan',
             'fontAwesome' => true,
             'dropdownOptions' => [
                 'label' => 'Export',
@@ -70,44 +70,40 @@ $this->params['breadcrumbs'][] = $this->title;
                 'headerOptions' => ['class' => 'text-right serial-column'],
                 'contentOptions' => ['class' => 'text-right serial-column'],
             ],
-            [
-                'contentOptions' => ['class' => 'action-column nowrap text-left'],
-                'class' => 'yii\grid\ActionColumn',
-                'buttons' => [
-                    'view' => function ($url) {
-                        return Html::a('', $url, ['class' => 'glyphicon glyphicon-eye-open btn btn-xs btn-default btn-text-info']);
-                    },
-                    'update' => function ($url) {
-                        return Html::a('', $url, ['class' => 'glyphicon glyphicon-pencil btn btn-xs btn-default btn-text-warning']);
-                    },
-                    'delete' => function ($url) {
-                        return Html::a('', $url, [
-                            'class' => 'glyphicon glyphicon-trash btn btn-xs btn-default btn-text-danger', 
-                            'data-method' => 'post', 
-                            'data-confirm' => 'Are you sure you want to delete this item?']);
-                    },
-                ],
-            ],
             // 'id',
-            'name',
             [
-                'attribute' => 'price',
-                'format' => 'integer',
-                'headerOptions' => ['class' => 'text-right'],
-                'contentOptions' => ['class' => 'text-right'],
-            ],
-       
-
-                'stock',
-            [
-                'attribute' => 'category_id',
-                'value' => 'category.category',
+                'attribute' => 'user_id',
+                'value' => 'user.name',
                 'filterType' => GridView::FILTER_SELECT2,
-                'filter' => ArrayHelper::map(Category::find()->orderBy('category')->asArray()->all(), 'id', 'category'), 
+                'filter' => ArrayHelper::map(User::find()->orderBy('name')->asArray()->all(), 'id', 'name'), 
                 'filterInputOptions'=>['placeholder'=>''],
                 'filterWidgetOptions' => [
                     'pluginOptions' => ['allowClear'=>true],
                 ],
+            ],
+            [
+                'attribute' => 'paid',
+                'format' => 'integer',
+                'headerOptions' => ['class' => 'text-right'],
+                'contentOptions' => ['class' => 'text-right'],
+            ],
+            [
+                'attribute' => 'date',
+                'format' => 'date',
+                'filterType' => GridView::FILTER_DATE,
+                'filterInputOptions' => ['placeholder' => ''],
+                'filterWidgetOptions' => [
+                    'pluginOptions' => ['autoclose' => true, 'format' => 'yyyy-mm-dd'],
+                ],
+            ],
+            [
+                'attribute' => 'status',
+                'format' => 'raw',
+                'value'=>function($model){
+                    return $model->getStatusTypeText(true);
+                },
+                'headerOptions' => ['class' => 'text-right'],
+                'contentOptions' => ['class' => 'text-right'],
             ],
             // 'created_at:integer',
             // 'created_by:integer',
@@ -124,10 +120,9 @@ $this->params['breadcrumbs'][] = $this->title;
         'striped' => false,
         'bordered' => false,
         'toolbar'=> [
-            Html::a('<i class="fa fa-plus"></i> ' . 'Create', ['create'], ['class' => 'btn btn-success']),
             Html::a('<i class="fa fa-repeat"></i> ' . 'Reload', ['index'], ['data-pjax'=>0, 'class'=>'btn btn-default']),
             '{toggleData}',
-            // $exportMenu,
+            $exportMenu,
         ],
         'panel' => [
             'type' => 'no-border transparent',
@@ -151,7 +146,7 @@ $this->params['breadcrumbs'][] = $this->title;
             <div class="clearfix"></div>
         ',
         'pjaxSettings' => ['options' => ['id' => 'grid']],
-        'filterModel' => $searchModel,
+        // 'filterModel' => $searchModel,
         'columns' => $gridColumns,
     ]); ?>
 

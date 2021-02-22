@@ -36,6 +36,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 // 'id',
                 'name',
                 'price:integer',
+                'stock',
                 'desc:ntext',
                 [
                     'label' => 'Foto',

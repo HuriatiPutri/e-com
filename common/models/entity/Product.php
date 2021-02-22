@@ -52,8 +52,8 @@ class Product extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['name', 'price', 'desc', 'category_id'], 'required'],
-            [['price', 'category_id', 'created_at', 'created_by', 'updated_at', 'updated_by'], 'integer'],
+            [['name', 'price', 'desc', 'category_id','stock'], 'required'],
+            [['price', 'category_id', 'stock','created_at', 'created_by', 'updated_at', 'updated_by'], 'integer'],
             [['desc', 'mainImage'], 'string'],
             [['name'], 'string', 'max' => 225],
             [['category_id'], 'exist', 'skipOnError' => true, 'targetClass' => Category::className(), 'targetAttribute' => ['category_id' => 'id']],
@@ -67,11 +67,12 @@ class Product extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'name' => 'Name',
-            'price' => 'Price',
-            'desc' => 'Desc',
+            'name' => 'Nama Produk',
+            'price' => 'Harga',
+            'stock' => 'Stok',
+            'desc' => 'Keterangan',
             'mainImage' => 'Main Image',
-            'category_id' => 'Category',
+            'category_id' => 'Kategori',
             'created_at' => 'Created At',
             'created_by' => 'Created By',
             'updated_at' => 'Updated At',

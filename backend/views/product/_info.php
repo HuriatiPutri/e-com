@@ -27,7 +27,8 @@ $this->params['breadcrumbs'][] = $this->title;
     <?=Html::label('Inpukan Ukuran / Warna Produk')?>
     <hr>
     <?=Html::label('Ukuran/Warna')?>
-        <?= $form->field($model, 'name')->textInput(['maxlength' => true])->label(false) ?>
+    <?= $form->field($model, 'name')->textInput(['maxlength' => true])->label(false) ?>
+        <?= $form->field($model, 'ukuran')->checkboxList(['S'=>'S','M'=>'M','L'=>'L','XL'=>'XL']) ?>
         <?= $form->field($model, 'group')->radioList(['1'=>'size', '2'=>'warna'])?>
 
    

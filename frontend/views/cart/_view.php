@@ -34,6 +34,10 @@ $this->title = $model->name;
     </div>
   </div>
   <h1><?= Html::encode($this->title) ?> </h1>
+  <?php
+      $ukuran = InfoDetail::find()->where(['product_id'=>$model->id])->one();
+      // echo explode(',',$ukuran->ukuran);
+      ?>
   <div class="col-md-9">
    <span class="label label-danger"><?= $model->stock <= 0 ? 'Sold Out' : '' ?></span><br><hr>
   </div>
@@ -119,20 +123,17 @@ $this->title = $model->name;
 
     <hr>
     <?= $form->field($model2, 'qty')->textInput(['autofocus' => true,]) ?>
-
-    <?= $form->field($model2, 'ukuran')->widget(Select2::classname(), [
-      'data' => ArrayHelper::map(InfoDetail::find()->where(['product_id' => $model->id, 'group' => '1'])->all(), 'name', 'name'),
-      'options' => ['placeholder' => ''],
-      'pluginOptions' => ['allowClear' => true],
-    ]); ?>
+   
+    <?= $form->field($model2, 'ukuran')->radioList(explode(',',$ukuran->ukuran)) ?>
 
     <?= $form->field($model2, 'warna')->widget(Select2::classname(), [
-      'data' => ArrayHelper::map(InfoDetail::find()->where(['product_id' => $model->id, 'group' => '2'])->all(), 'name', 'name'),
+      'data' => ArrayHelper::map(InfoDetail::find()->where(['product_id' => $model->id])->all(), 'name', 'name'),
       'options' => ['placeholder' => ''],
       'pluginOptions' => ['allowClear' => true],
     ]); ?>
     <?= Html::submitButton('Add to cart', ['class' => $model->stock <= 0 ? 'btn btn-primary  disabled' : 'btn btn-primary ', 'name' => 'login-button']) ?>
 
   </div>
+
 </div>
 <?php ActiveForm::end(); ?>

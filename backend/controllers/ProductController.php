@@ -152,6 +152,7 @@ class ProductController extends Controller
 
         if ($model->load(Yii::$app->request->post())) {
             $model->product_id = $id;
+            $model->ukuran = implode(",", $model->ukuran); 
             if($model->save())
             return $this->redirect(['info-detail', 'id' => $id]);
         } 

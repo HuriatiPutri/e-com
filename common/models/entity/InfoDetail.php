@@ -48,6 +48,7 @@ class InfoDetail extends \yii\db\ActiveRecord
             [['product_id', 'name', 'group'], 'required'],
             [['product_id', 'group', 'created_at', 'created_by', 'updated_at', 'updated_by'], 'integer'],
             [['name'], 'string', 'max' => 225],
+            [['ukuran'],'safe'],
             [['product_id'], 'exist', 'skipOnError' => true, 'targetClass' => Product::className(), 'targetAttribute' => ['product_id' => 'id']],
         ];
     }

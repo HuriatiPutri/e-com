@@ -30,7 +30,15 @@ use mdm\widgets\TabularInput;
 
     <?= $form->field($model, 'desc')->textarea(['rows' => 6]) ?>
 
-
+    <?= $form->field($model, 'mainImage', ['template' => "{input}\n{error}{hint}"])->widget(FileInput::className(), [
+                // 'options' => ['accept' => 'image/*, application/pdf'],
+                'pluginOptions' => [
+                    'showPreview'           => false,
+                    'showUpload'            => false,
+                    // 'allowedFileExtensions' => ['pdf', 'png', 'jpg', 'jpeg'],
+                    'elErrorContainer'      => '#error-media_file_physical-file',
+                ]
+            ]) ?>
     <?= $form->field($model, 'category_id')->widget(Select2::classname(), [
         'data' => ArrayHelper::map(Category::find()->all(), 'id', 'category'),
         'options' => ['placeholder' => ''],
